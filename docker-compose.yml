@@ -18,6 +18,8 @@ services:
       - mongo
     volumes:
       - .:/application
+    ports:
+      - "9229:9229"
   mongo:
     image: mongo
     volumes:

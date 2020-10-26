@@ -13,11 +13,23 @@ controller.list = (req, res) => {
 
 controller.create = (req, res) => {
   const message = new Message(req.body);
+  message.user = req.user;
   message.save((err) => {
     if (err) {
       res.status(422).send(err);
     } else {
       res.status(201).send(message);
+    }
+  });
+};
+
+controller.delete = (req, res) => {
+  Message.findById(req.id, (err, message) => {
+    if (err) {
+      res.status(404).send(err);
+    } else {
+      message.delete();
+      res.send(message);
     }
   });
 };

@@ -1,7 +1,16 @@
 const mongoose = require('../mongoose/db.js');
 
-const messageSchema = new mongoose.Schema({
+const schema = new mongoose.Schema({
   content: String,
+  users: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
+  ],
+  createdAt: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model('Conversation', messageSchema);
+schema.set('timestamps', true);
+
+module.exports = mongoose.model('Conversation', schema);

@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const logger = require('morgan');
 
@@ -8,8 +9,11 @@ const app = express();
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-require('dotenv').config();
 
 app.use('/', router);
+
+// app.use((err, req, res, next) => {
+//   res.status(500).send('Something broke!');
+// });
 
 module.exports = app;
