@@ -8,16 +8,16 @@ controller.authenticate = (req, res) => {
   User.findOne({ email: req.body.email }, (err, user) => {
     if (err) throw err;
     // @TODO
-    if (!user) res.sendStatus(404);
+    if (!user) res.status(401).json({ message: 'Invalid credentials' });
 
     user.comparePassword(req.body.password, (error, isMatch) => {
       if (error) throw error;
       if (isMatch) {
         const token = jwt.sign({ email: req.body.email, id: user.id }, process.env.TOKEN_SECRET, { expiresIn: `${ttl}s` });
-        return res.json({ access_token: token, ttl });
+        return res.json({ access_token: token, ttl, user });
       }
       // @TODO
-      return res.sendStatus(401);
+      return res.status(401).json({ message: 'Invalid credentials' });
     });
   });
 };
