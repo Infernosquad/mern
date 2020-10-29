@@ -13,9 +13,9 @@ export class ConversationList extends Component {
 
         return (
             <Container component="main" maxWidth="xs">
-                {conversations.map(c =>
-                    <React.Fragment key={c.id}>
-                        <h6>{c.id}</h6>
+                {conversations.map((c,i) =>
+                    <React.Fragment key={i}>
+                        <h6>{c._id}</h6>
                     </React.Fragment>
                 )}
             </Container>
